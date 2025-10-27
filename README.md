@@ -54,16 +54,15 @@ All sands/cubes are crafted by placing 4 of the correct item in a square.
 Sands/cubes can also be de-crafted back into 4 of the item used to make them.
 All crafting recipes can be turned on/off from the mod config menu.
 
-![glowstone sand smelting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GlowstoneSandSmeltingRecipe.png)
-![glowstone sand crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GlowstoneSandCraftingRecipe.png)
-![glowstone sand de-crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GlowstoneSandDecraftingRecipe.png)
-![redstone sand crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/RedstoneSandCraftingRecipe.png)
-![redstone sand de-crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/RedstoneSandDecraftingRecipe.png)
 ![sugar cube crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/SugarCubeCraftingRecipe.png)
 ![sugar cube de-crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/SugarCubeDecraftingRecipe.png)
 ![gunpowder cube crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GunpowderCubeCraftingRecipe.png)
 ![gunpowder cube de-crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GunpowderCubeDecraftingRecipe.png)
-
+![redstone sand crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/RedstoneSandCraftingRecipe.png)
+![redstone sand de-crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/RedstoneSandDecraftingRecipe.png)
+![glowstone sand crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GlowstoneSandCraftingRecipe.png)
+![glowstone sand de-crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GlowstoneSandDecraftingRecipe.png)
+![glowstone sand smelting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GlowstoneSandSmeltingRecipe.png)
 
 ## Installation using Prism Launcher
 
