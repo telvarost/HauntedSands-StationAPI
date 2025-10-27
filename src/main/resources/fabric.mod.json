@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "hauntedsands",
+  "version": "${version}",
+
+  "name": "HauntedSands",
+  "description": "Adds new sand types for the October 2025 Halloween modding event.",
+  "authors": [
+    "Telvarost"
+  ],
+  "contact": {
+    "issues": "https://github.com/telvarost/HauntedSands-StationAPI/issues",
+    "homepage": "https://github.com/telvarost/HauntedSands-StationAPI/",
+    "sources": "https://github.com/telvarost/HauntedSands-StationAPI/"
+  },
+
+  "license": "MIT",
+  "icon": "assets/hauntedsands/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "stationapi:event_bus": [
+      "com.github.telvarost.hauntedsands.HauntedSands",
+      "com.github.telvarost.hauntedsands.events.init.BlockListener",
+      "com.github.telvarost.hauntedsands.events.init.RecipeListener"
+    ],
+    "stationapi:event_bus_client": [
+      "com.github.telvarost.hauntedsands.events.client.TextureListener"
+    ],
+    "stationapi:event_bus_server": [
+    ],
+    "bhcreative:event_bus": [
+      "com.github.telvarost.hauntedsands.events.init.CreativeListener"
+    ],
+    "gcapi3": [
+      "com.github.telvarost.hauntedsands.Config"
+    ],
+    "gcapi3:factory_provider": [
+      "com.github.telvarost.hauntedsands.enums.AdobeRecipeEnumFactory"
+    ]
+  },
+  "mixins": [
+    "hauntedsands.mixins.json"
+  ],
+  "accessWidener": "hauntedsands.accesswidener",
+
+  "depends": {
+    "minecraft": "1.0.0-beta.7.3",
+    "stationapi": "*"
+  },
+
+  "recommends": {
+    "gcapi3": ">=3.0.1",
+    "modmenu": "*"
+  }
+}

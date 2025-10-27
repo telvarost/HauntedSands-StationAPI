@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.github.telvarost.hauntedsands.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "plugin": "com.github.telvarost.hauntedsands.HauntedSandsMixinPlugin",
+  "mixins": [
+    "CactusBlockMixin",
+    "DeadBushBlockMixin",
+    "FallingBlockEntityMixin",
+    "FireBlockMixin",
+    "NetherChunkGeneratorMixin",
+    "OverworldChunkGeneratorMixin",
+    "PigEntityMixin",
+    "PlantBlockMixin",
+    "SugarCaneBlockMixin"
+  ],
+  "server": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
