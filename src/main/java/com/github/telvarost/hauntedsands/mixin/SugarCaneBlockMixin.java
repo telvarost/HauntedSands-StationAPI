@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 import static com.github.telvarost.hauntedsands.events.init.BlockListener.*;
-import static com.github.telvarost.hauntedsands.events.init.BlockListener.GUNPOWDER_CUBE;
 
 @Mixin(SugarCaneBlock.class)
 public class SugarCaneBlockMixin {

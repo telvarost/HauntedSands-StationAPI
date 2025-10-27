@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static com.github.telvarost.hauntedsands.events.init.BlockListener.*;
-import static com.github.telvarost.hauntedsands.events.init.BlockListener.GUNPOWDER_CUBE;
 
 @Mixin(PlantBlock.class)
 public class PlantBlockMixin extends Block {
