@@ -14,4 +14,6 @@ public class HauntedSands {
     public static int LIT_REDSTONE_SAND_TEXTURE = 0;
     public static int SUGAR_CUBE_TEXTURE        = 0;
     public static int GUNPOWDER_CUBE_TEXTURE    = 0;
+    public static int GRAVE_TOP_TEXTURE         = 0;
+    public static int GRAVE_SIDE_TEXTURE        = 0;
 }

@@ -15,5 +15,7 @@ public class TextureListener {
         HauntedSands.LIT_REDSTONE_SAND_TEXTURE = Atlases.getTerrain().addTexture(Identifier.of(HauntedSands.HAUNTED_SANDS, "block/lit_redstone_sand")).index;
         HauntedSands.SUGAR_CUBE_TEXTURE        = Atlases.getTerrain().addTexture(Identifier.of(HauntedSands.HAUNTED_SANDS, "block/sugar_cube")       ).index;
         HauntedSands.GUNPOWDER_CUBE_TEXTURE    = Atlases.getTerrain().addTexture(Identifier.of(HauntedSands.HAUNTED_SANDS, "block/gunpowder_cube")   ).index;
+        HauntedSands.GRAVE_TOP_TEXTURE         = Atlases.getTerrain().addTexture(Identifier.of(HauntedSands.HAUNTED_SANDS, "block/grave_top")        ).index;
+        HauntedSands.GRAVE_SIDE_TEXTURE        = Atlases.getTerrain().addTexture(Identifier.of(HauntedSands.HAUNTED_SANDS, "block/grave_side")       ).index;
     }
 }
