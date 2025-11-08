@@ -13,6 +13,7 @@
     "OverworldChunkGeneratorMixin",
     "PigEntityMixin",
     "PlantBlockMixin",
+    "PlayerInventoryMixin",
     "SugarCaneBlockMixin"
   ],
   "server": [
