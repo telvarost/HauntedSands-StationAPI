@@ -36,7 +36,6 @@
       "com.github.telvarost.hauntedsands.Config"
     ],
     "gcapi3:factory_provider": [
-      "com.github.telvarost.hauntedsands.enums.AdobeRecipeEnumFactory"
     ]
   },
   "mixins": [
