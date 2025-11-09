@@ -21,6 +21,13 @@ public class Config {
         public TerrainGenerationConfig TERRAIN_GENERATION_CONFIG = new TerrainGenerationConfig();
 
         @ConfigEntry(
+                name = "Player Death Creates Main Inventory Grave",
+                description = "Excludes armor slots and modded slots",
+                multiplayerSynced = true
+        )
+        public Boolean playerDeathCreatesMainInventoryGrave = true;
+
+        @ConfigEntry(
                 name = "Pigs Eat Sugar & Seek Brown Mushrooms",
                 description = "Only for items; Does not work for blocks",
                 multiplayerSynced = true

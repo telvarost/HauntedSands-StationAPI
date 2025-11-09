@@ -1,5 +1,6 @@
 package com.github.telvarost.hauntedsands.mixin;
 
+import com.github.telvarost.hauntedsands.Config;
 import com.github.telvarost.hauntedsands.blockentity.ColumbariumBlockEntity;
 import com.github.telvarost.hauntedsands.blockentity.GraveBlockEntity;
 import com.github.telvarost.hauntedsands.events.init.BlockListener;
@@ -33,6 +34,10 @@ public class PlayerInventoryMixin {
             cancellable = true
     )
     public void hauntedSands_dropInventoryHead(CallbackInfo ci) {
+        if (!Config.config.playerDeathCreatesMainInventoryGrave) {
+            return;
+        }
+
         int xPlayerDeath = (int)Math.floor(this.player.x);
         int yPlayerDeath = (int)Math.floor(this.player.y);
         int zPlayerDeath = (int)Math.floor(this.player.z);

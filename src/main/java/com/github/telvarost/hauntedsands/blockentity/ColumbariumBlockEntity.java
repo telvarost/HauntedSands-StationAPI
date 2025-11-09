@@ -1,6 +1,7 @@
 package com.github.telvarost.hauntedsands.blockentity;
 
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -8,7 +9,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 
 public class ColumbariumBlockEntity extends BlockEntity implements Inventory {
-    private String name = "Columbarium";
     public ItemStack[] contents = new ItemStack[36];
 
     @Override
@@ -56,11 +56,7 @@ public class ColumbariumBlockEntity extends BlockEntity implements Inventory {
 
     @Override
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return I18n.getTranslation("gui.hauntedsands.columbarium");
     }
 
     @Override
@@ -76,11 +72,6 @@ public class ColumbariumBlockEntity extends BlockEntity implements Inventory {
                 this.contents[var5] = new ItemStack(var4);
             }
         }
-
-        if (tag.contains("Name")) {
-            name = tag.getString("Name");
-        }
-
     }
 
     @Override
@@ -95,10 +86,6 @@ public class ColumbariumBlockEntity extends BlockEntity implements Inventory {
                 this.contents[var3].writeNbt(var4);
                 var2.add(var4);
             }
-        }
-
-        if (!name.equals("Columbarium")) {
-            arg.putString("Name", name);
         }
 
         arg.put("Items", var2);

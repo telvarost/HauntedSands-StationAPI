@@ -6,3 +6,6 @@ tile.@.sugar_cube.name=Sugar Cube
 tile.@.gunpowder_cube.name=Gunpowder Cube
 tile.@.grave.name=Grave
 tile.@.columbarium.name=Columbarium
+
+gui.hauntedsands.grave=Grave
+gui.hauntedsands.columbarium=Columbarium

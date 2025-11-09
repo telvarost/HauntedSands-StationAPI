@@ -3,22 +3,25 @@ package com.github.telvarost.hauntedsands.gui;
 import com.github.telvarost.hauntedsands.blockentity.GraveBlockEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
 import org.lwjgl.opengl.GL11;
 
 public class GuiGrave extends HandledScreen {
-    private final String name;
+    private Inventory playerInventory;
+    private GraveBlockEntity grave;
 
-    public GuiGrave(PlayerInventory inv, GraveBlockEntity grave) {
-        super(new ContainerGrave(inv, grave));
-        name = grave.getName();
+    public GuiGrave(PlayerInventory playerInventory, GraveBlockEntity grave) {
+        super(new ContainerGrave(playerInventory, grave));
+        this.playerInventory = playerInventory;
+        this.grave = grave;
         this.backgroundWidth = 176;
         this.backgroundHeight = 222;
     }
 
     @Override
     protected void drawForeground() {
-        textRenderer.draw(name, 8, this.backgroundHeight - 171, 4210752);
-        textRenderer.draw("Inventory", 8, this.backgroundHeight - 121, 4210752);
+        textRenderer.draw(this.grave.getName(), 8, this.backgroundHeight - 171, 4210752);
+        textRenderer.draw(this.playerInventory.getName(), 8, this.backgroundHeight - 121, 4210752);
     }
 
     @Override

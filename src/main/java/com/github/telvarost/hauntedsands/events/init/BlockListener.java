@@ -54,28 +54,5 @@ public class BlockListener {
         , GRAVE
         , COLUMBARIUM
         };
-//        CommandRegistry.add(new Command() {
-//            @Override
-//            public void command(SharedCommandSource sharedCommandSource, String[] strings) {
-//                PlayerEntity p = sharedCommandSource.getPlayer();
-//
-//                int range = 50;
-//                for (int x = (int) (p.x - range); x < p.x + range; x++) {
-//                    for (int z = (int) (p.z - range); z < p.z + range; z++) {
-//                        p.world.setBlockWithoutNotifyingNeighbors(x, (int) p.y, z, GUNPOWDER_CUBE.id);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public String name() {
-//                return "fun";
-//            }
-//
-//            @Override
-//            public void manual(SharedCommandSource sharedCommandSource) {
-//
-//            }
-//        });
     }
 }

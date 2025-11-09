@@ -3,22 +3,25 @@ package com.github.telvarost.hauntedsands.gui;
 import com.github.telvarost.hauntedsands.blockentity.ColumbariumBlockEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
 import org.lwjgl.opengl.GL11;
 
 public class GuiColumbarium extends HandledScreen {
-    private final String name;
+    private Inventory playerInventory;
+    private ColumbariumBlockEntity columbarium;
 
-    public GuiColumbarium(PlayerInventory inv, ColumbariumBlockEntity columbarium) {
-        super(new ContainerColumbarium(inv, columbarium));
-        name = columbarium.getName();
+    public GuiColumbarium(PlayerInventory playerInventory, ColumbariumBlockEntity columbarium) {
+        super(new ContainerColumbarium(playerInventory, columbarium));
+        this.playerInventory = playerInventory;
+        this.columbarium = columbarium;
         this.backgroundWidth = 176;
         this.backgroundHeight = 222;
     }
 
     @Override
     protected void drawForeground() {
-        textRenderer.draw(name, 8, this.backgroundHeight - 207, 4210752);
-        textRenderer.draw("Inventory", 8, this.backgroundHeight - 121, 4210752);
+        textRenderer.draw(this.columbarium.getName(), 8, this.backgroundHeight - 207, 4210752);
+        textRenderer.draw(this.playerInventory.getName(), 8, this.backgroundHeight - 121, 4210752);
     }
 
     @Override
