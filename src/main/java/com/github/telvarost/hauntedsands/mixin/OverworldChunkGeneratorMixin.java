@@ -1,7 +1,6 @@
 package com.github.telvarost.hauntedsands.mixin;
 
 import com.github.telvarost.hauntedsands.Config;
-import net.minecraft.block.SandBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkSource;

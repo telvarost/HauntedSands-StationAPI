@@ -59,4 +59,3 @@ public class NetherOreFeature extends Feature {
         return true;
     }
 }
-

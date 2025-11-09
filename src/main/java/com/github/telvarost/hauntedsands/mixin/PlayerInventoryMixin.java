@@ -5,6 +5,7 @@ import com.github.telvarost.hauntedsands.blockentity.GraveBlockEntity;
 import com.github.telvarost.hauntedsands.events.init.BlockListener;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -39,7 +40,6 @@ public class PlayerInventoryMixin {
         for (int yPos = yPlayerDeath; yPos >= 0; yPos--) {
             if (this.player.world.getMaterial(xPlayerDeath, yPos, zPlayerDeath).isReplaceable()) {
                 gravePosition = new BlockPos(xPlayerDeath, yPos, zPlayerDeath);
-                System.out.println(gravePosition.toString());
             } else {
                 break;
             }
@@ -49,7 +49,6 @@ public class PlayerInventoryMixin {
             for (int yPos = yPlayerDeath; yPos < this.player.world.getHeight(); yPos++) {
                 if (this.player.world.getMaterial(xPlayerDeath, yPos, zPlayerDeath).isReplaceable()) {
                     gravePosition = new BlockPos(xPlayerDeath, yPos, zPlayerDeath);
-                    System.out.println(gravePosition.toString());
                     break;
                 }
             }
@@ -80,25 +79,39 @@ public class PlayerInventoryMixin {
     public void hauntedSands_dropInventoryTail(CallbackInfo ci) {
         if (null != gravePosition && !mainInventoryItemList.isEmpty()) {
             if (18 >= mainInventoryItemList.size()) {
-                this.player.world.setBlock(gravePosition.x, gravePosition.y, gravePosition.z, BlockListener.GRAVE.id);
-                GraveBlockEntity blockEntity = (GraveBlockEntity)this.player.world.getBlockEntity(gravePosition.x, gravePosition.y, gravePosition.z);
+                this.player.world.setBlock(gravePosition.x, gravePosition.y, gravePosition.z, BlockListener.GRAVE.id, 1);
+                GraveBlockEntity graveBlockEntity = (GraveBlockEntity)this.player.world.getBlockEntity(gravePosition.x, gravePosition.y, gravePosition.z);
 
-                for (int blockInventoryIndex = 0; blockInventoryIndex < mainInventoryItemList.size(); blockInventoryIndex++) {
-                    if (blockEntity.size() <= blockInventoryIndex) {
-                        break;
-                    } else {
-                        blockEntity.contents[blockInventoryIndex] = mainInventoryItemList.get(blockInventoryIndex).copy();
+                if (null != graveBlockEntity) {
+                    for (int blockInventoryIndex = 0; blockInventoryIndex < mainInventoryItemList.size(); blockInventoryIndex++) {
+                        if (graveBlockEntity.size() <= blockInventoryIndex) {
+                            break;
+                        } else {
+                            graveBlockEntity.contents[blockInventoryIndex] = mainInventoryItemList.get(blockInventoryIndex).copy();
+                        }
+                    }
+                } else {
+                    BlockEntity blockEntity = this.player.world.getBlockEntity(gravePosition.x, gravePosition.y - 1, gravePosition.z);
+
+                    if (blockEntity instanceof ColumbariumBlockEntity columbariumBlockEntity) {
+                        for (int blockInventoryIndex = 0; blockInventoryIndex < mainInventoryItemList.size(); blockInventoryIndex++) {
+                            if ((columbariumBlockEntity.size() - 18) <= blockInventoryIndex) {
+                                break;
+                            } else {
+                                columbariumBlockEntity.contents[blockInventoryIndex] = mainInventoryItemList.get(blockInventoryIndex).copy();
+                            }
+                        }
                     }
                 }
             } else {
-                this.player.world.setBlock(gravePosition.x, gravePosition.y, gravePosition.z, BlockListener.COLUMBARIUM.id);
-                ColumbariumBlockEntity blockEntity = (ColumbariumBlockEntity)this.player.world.getBlockEntity(gravePosition.x, gravePosition.y, gravePosition.z);
+                this.player.world.setBlock(gravePosition.x, gravePosition.y, gravePosition.z, BlockListener.COLUMBARIUM.id, 1);
+                ColumbariumBlockEntity columbariumBlockEntity = (ColumbariumBlockEntity)this.player.world.getBlockEntity(gravePosition.x, gravePosition.y, gravePosition.z);
 
                 for (int blockInventoryIndex = 0; blockInventoryIndex < mainInventoryItemList.size(); blockInventoryIndex++) {
-                    if (blockEntity.size() <= blockInventoryIndex) {
+                    if (columbariumBlockEntity.size() <= blockInventoryIndex) {
                         this.player.dropItem(mainInventoryItemList.get(blockInventoryIndex), true);
                     } else {
-                        blockEntity.contents[blockInventoryIndex] = mainInventoryItemList.get(blockInventoryIndex).copy();
+                        columbariumBlockEntity.contents[blockInventoryIndex] = mainInventoryItemList.get(blockInventoryIndex).copy();
                     }
                 }
             }

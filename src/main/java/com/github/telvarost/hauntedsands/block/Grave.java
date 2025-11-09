@@ -1,6 +1,7 @@
 package com.github.telvarost.hauntedsands.block;
 
 import com.github.telvarost.hauntedsands.HauntedSands;
+import com.github.telvarost.hauntedsands.blockentity.ColumbariumBlockEntity;
 import com.github.telvarost.hauntedsands.blockentity.GraveBlockEntity;
 import com.github.telvarost.hauntedsands.events.init.BlockListener;
 import com.github.telvarost.hauntedsands.gui.ContainerGrave;
@@ -9,12 +10,14 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockWithEntity;
 import net.modificationstation.stationapi.api.util.Identifier;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Grave extends TemplateBlockWithEntity {
@@ -66,8 +69,22 @@ public class Grave extends TemplateBlockWithEntity {
         int var7 = world.getBlockMeta(x, y - 1, z);
         if (var6 == var7) {
             if (var5 == BlockListener.GRAVE.id) {
+                ArrayList<ItemStack> graveBlockContents = new ArrayList<>();
+                GraveBlockEntity graveBlockEntity = (GraveBlockEntity)world.getBlockEntity(x, y - 1, z);
+                for (int graveInventoryIndex = 0; graveInventoryIndex < graveBlockEntity.size(); graveInventoryIndex++) {
+                    if (null != graveBlockEntity.contents[graveInventoryIndex]) {
+                        graveBlockContents.add(graveBlockEntity.removeStack(graveInventoryIndex, graveBlockEntity.contents[graveInventoryIndex].count));
+                    } else {
+                        graveBlockContents.add(null);
+                    }
+                }
                 world.setBlock(x, y, z, 0);
                 world.setBlock(x, y - 1, z, BlockListener.COLUMBARIUM.id, var6);
+                ColumbariumBlockEntity columbariumBlockEntity = (ColumbariumBlockEntity)world.getBlockEntity(x, y - 1, z);
+                for (int columbariumInventoryIndex = 0; columbariumInventoryIndex < graveBlockContents.size(); columbariumInventoryIndex++) {
+                    columbariumBlockEntity.setStack(columbariumInventoryIndex + 18, graveBlockContents.get(columbariumInventoryIndex));
+                }
+                world.removeBlockEntity(x, y, z);
             }
         }
     }
@@ -95,10 +112,17 @@ public class Grave extends TemplateBlockWithEntity {
 
     @Override
     public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
+        int blockMeta = world.getBlockMeta(x, y, z);
         BlockEntity blockEntity = world.getBlockEntity(x, y, z);
-        if (blockEntity instanceof GraveBlockEntity grave) {
-            GuiHelper.openGUI(player, HauntedSands.HAUNTED_SANDS.id("grave"), grave, new ContainerGrave(player.inventory, grave));
+
+        if (0 != blockMeta) {
+            world.setBlock(x, y, z, 0, 0);
+        } else {
+            if (blockEntity instanceof GraveBlockEntity grave) {
+                GuiHelper.openGUI(player, HauntedSands.HAUNTED_SANDS.id("grave"), grave, new ContainerGrave(player.inventory, grave));
+            }
         }
+
         return true;
     }
 }

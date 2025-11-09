@@ -60,4 +60,3 @@ public class NetherRedstoneSandFeature extends Feature {
         return true;
     }
 }
-

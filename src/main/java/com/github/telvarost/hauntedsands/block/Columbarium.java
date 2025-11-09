@@ -2,7 +2,6 @@ package com.github.telvarost.hauntedsands.block;
 
 import com.github.telvarost.hauntedsands.HauntedSands;
 import com.github.telvarost.hauntedsands.blockentity.ColumbariumBlockEntity;
-import com.github.telvarost.hauntedsands.blockentity.GraveBlockEntity;
 import com.github.telvarost.hauntedsands.events.init.BlockListener;
 import com.github.telvarost.hauntedsands.gui.ContainerColumbarium;
 import net.minecraft.block.entity.BlockEntity;
@@ -59,10 +58,17 @@ public class Columbarium extends TemplateBlockWithEntity {
 
     @Override
     public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
+        int blockMeta = world.getBlockMeta(x, y, z);
         BlockEntity blockEntity = world.getBlockEntity(x, y, z);
-        if (blockEntity instanceof ColumbariumBlockEntity grave) {
-            GuiHelper.openGUI(player, HauntedSands.HAUNTED_SANDS.id("columbarium"), grave, new ContainerColumbarium(player.inventory, grave));
+
+        if (0 != blockMeta) {
+            world.setBlock(x, y, z, 0, 0);
+        } else {
+            if (blockEntity instanceof ColumbariumBlockEntity grave) {
+                GuiHelper.openGUI(player, HauntedSands.HAUNTED_SANDS.id("columbarium"), grave, new ContainerColumbarium(player.inventory, grave));
+            }
         }
+
         return true;
     }
 }
