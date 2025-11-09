@@ -43,6 +43,15 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types for the Octob
 
 ### Other Features
 
+* Ability to create a grave on player death that contains main inventory items (including hotbar)
+  * The grave will not contain armor or modded slot items
+  * Grave vanishes on use and items are dropped
+  * Grave is blast resistant to creepers
+    * A creeper standing on it may still be able to blow it up
+  * Grave will be a slab if less than half or half the main inventory slots are filled
+    * Grave slabs combine using beta slab logic
+  * Grave will be a full block (Columbarium) if more than half the main inventory slots are filled
+  * No grave will be created if player main inventory is empty
 * Pigs will now seek out sugar and brown mushrooms when they are in item form
   * Pigs will eat the sugar healing them 0.5 hearts if they are hurt
   * The pigs are rather finicky and sometimes won't seek out or do anything
