@@ -59,9 +59,13 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types for the Octob
 
 ### Crafting Recipes
 
-All sands/cubes are crafted by placing 4 of the correct item in a square.
-Sands/cubes can also be de-crafted back into 4 of the item used to make them.
 All crafting recipes can be turned on/off from the mod config menu.
+* All sands/cubes are crafted by placing 4 of the correct item in a square.
+  * Sands/cubes can also be de-crafted back into 4 of the item used to make them.
+* Graves can be crafted with soul sand, any vanilla slab, and either a regular chest or a locked chest
+  * Locked chests are a special drop from lost soul mobs for this mod
+  * A lost soul mob will spawn on player death if a grave was created
+    * The mob will be wearing the dead player's armor
 
 ![sugar cube crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/SugarCubeCraftingRecipe.png)
 ![sugar cube de-crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/SugarCubeDecraftingRecipe.png)
@@ -72,6 +76,7 @@ All crafting recipes can be turned on/off from the mod config menu.
 ![glowstone sand crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GlowstoneSandCraftingRecipe.png)
 ![glowstone sand de-crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GlowstoneSandDecraftingRecipe.png)
 ![glowstone sand smelting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GlowstoneSandSmeltingRecipe.png)
+![grave crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/GraveCraftingRecipe.png)
 
 ## Installation using Prism Launcher
 

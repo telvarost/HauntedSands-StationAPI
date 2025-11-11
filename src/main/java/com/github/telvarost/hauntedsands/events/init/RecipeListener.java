@@ -62,6 +62,11 @@ public class RecipeListener {
         }
 
         if (type == RecipeRegisterEvent.Vanilla.CRAFTING_SHAPELESS.type()) {
+            if (Config.config.RECIPE_CONFIG.enableGraveCraftingRecipe) {
+                CraftingRegistry.addShapelessRecipe(new ItemStack(GRAVE.asItem(), 1), Block.SOUL_SAND, Block.CHEST, new ItemStack(Block.SLAB.asItem(), 1, -1));
+                CraftingRegistry.addShapelessRecipe(new ItemStack(GRAVE.asItem(), 1), Block.SOUL_SAND, Block.LOCKED_CHEST, new ItemStack(Block.SLAB.asItem(), 1, -1));
+            }
+
             if (Config.config.RECIPE_CONFIG.enableGlowstoneSandDecraftingRecipe) {
                 CraftingRegistry.addShapelessRecipe(new ItemStack(Item.GLOWSTONE_DUST, 4), GLOWSTONE_SAND.asItem());
             }

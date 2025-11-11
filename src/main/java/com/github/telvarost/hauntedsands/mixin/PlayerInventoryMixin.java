@@ -3,6 +3,7 @@ package com.github.telvarost.hauntedsands.mixin;
 import com.github.telvarost.hauntedsands.Config;
 import com.github.telvarost.hauntedsands.blockentity.ColumbariumBlockEntity;
 import com.github.telvarost.hauntedsands.blockentity.GraveBlockEntity;
+import com.github.telvarost.hauntedsands.entity.LostSoulEntity;
 import com.github.telvarost.hauntedsands.events.init.BlockListener;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -58,6 +59,17 @@ public class PlayerInventoryMixin {
                 }
             }
         }
+
+        if (gravePosition != null && !this.player.world.isRemote && this.player.world.difficulty > 0) {
+            LostSoulEntity playerLostSoul = new LostSoulEntity(this.player.world, gravePosition.x, gravePosition.y, gravePosition.z);
+            playerLostSoul.setPositionAndAnglesKeepPrevAngles(this.player.x, this.player.y, this.player.z, this.player.world.random.nextFloat() * 360.0F, 0.0F);
+            for (int armorIndex = 0; armorIndex < playerLostSoul.armor.length; armorIndex++) {
+                if (null != this.player.inventory.armor[armorIndex]) {
+                    playerLostSoul.armor[armorIndex] = this.player.inventory.armor[armorIndex].copy();
+                }
+            }
+            this.player.world.spawnEntity(playerLostSoul);
+        }
     }
 
     @WrapOperation(
@@ -68,9 +80,25 @@ public class PlayerInventoryMixin {
                     ordinal = 0
             )
     )
-    public void hauntedSands_dropInventoryDropItem(PlayerEntity instance, ItemStack stack, boolean throwRandomly, Operation<Void> original) {
+    public void hauntedSands_dropMainInventoryItem(PlayerEntity instance, ItemStack stack, boolean throwRandomly, Operation<Void> original) {
         if (null != gravePosition) {
             mainInventoryItemList.add(stack);
+        } else {
+            original.call(instance, stack, throwRandomly);
+        }
+    }
+
+    @WrapOperation(
+            method = "dropInventory",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/player/PlayerEntity;dropItem(Lnet/minecraft/item/ItemStack;Z)V",
+                    ordinal = 1
+            )
+    )
+    public void hauntedSands_dropArmorItem(PlayerEntity instance, ItemStack stack, boolean throwRandomly, Operation<Void> original) {
+        if (gravePosition != null && !this.player.world.isRemote && this.player.world.difficulty > 0) {
+            // Do nothing
         } else {
             original.call(instance, stack, throwRandomly);
         }

@@ -22,6 +22,7 @@
     "stationapi:event_bus": [
       "com.github.telvarost.hauntedsands.HauntedSands",
       "com.github.telvarost.hauntedsands.events.init.BlockListener",
+      "com.github.telvarost.hauntedsands.events.init.EntityListener",
       "com.github.telvarost.hauntedsands.events.init.RecipeListener"
     ],
     "stationapi:event_bus_client": [

@@ -38,6 +38,13 @@ public class Config {
     public static class RecipeConfig {
 
         @ConfigEntry(
+                name = "Enable Grave Crafting Recipe",
+                description = "Soul sand, chest, and a vanilla slab to craft",
+                multiplayerSynced = true
+        )
+        public Boolean enableGraveCraftingRecipe = true;
+
+        @ConfigEntry(
                 name = "Enable Redstone Sand Crafting Recipe",
                 description = "4 redstone in a square to craft",
                 multiplayerSynced = true
