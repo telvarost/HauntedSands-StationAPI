@@ -21,6 +21,13 @@ public class Config {
         public TerrainGenerationConfig TERRAIN_GENERATION_CONFIG = new TerrainGenerationConfig();
 
         @ConfigEntry(
+                name = "Player Death Creates A Lost Soul Enemy",
+                description = "Steals and wears the dead player's armor",
+                multiplayerSynced = true
+        )
+        public Boolean playerDeathCreatesLostSoulEnemy = true;
+
+        @ConfigEntry(
                 name = "Player Death Creates Main Inventory Grave",
                 description = "Excludes armor slots and modded slots",
                 multiplayerSynced = true

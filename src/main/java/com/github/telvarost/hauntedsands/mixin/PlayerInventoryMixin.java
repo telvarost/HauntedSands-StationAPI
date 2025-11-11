@@ -35,6 +35,19 @@ public class PlayerInventoryMixin {
             cancellable = true
     )
     public void hauntedSands_dropInventoryHead(CallbackInfo ci) {
+        if (Config.config.playerDeathCreatesLostSoulEnemy) {
+            if (!this.player.world.isRemote && this.player.world.difficulty > 0) {
+                LostSoulEntity playerLostSoul = new LostSoulEntity(this.player.world, (int)Math.floor(this.player.x), (int)Math.floor(this.player.y + 1.0), (int)Math.floor(this.player.z));
+                playerLostSoul.setPositionAndAnglesKeepPrevAngles(this.player.x, this.player.y, this.player.z, this.player.world.random.nextFloat() * 360.0F, 0.0F);
+                for (int armorIndex = 0; armorIndex < playerLostSoul.armor.length; armorIndex++) {
+                    if (null != this.player.inventory.armor[armorIndex]) {
+                        playerLostSoul.armor[armorIndex] = this.player.inventory.armor[armorIndex].copy();
+                    }
+                }
+                this.player.world.spawnEntity(playerLostSoul);
+            }
+        }
+
         if (!Config.config.playerDeathCreatesMainInventoryGrave) {
             return;
         }
@@ -58,17 +71,6 @@ public class PlayerInventoryMixin {
                     break;
                 }
             }
-        }
-
-        if (gravePosition != null && !this.player.world.isRemote && this.player.world.difficulty > 0) {
-            LostSoulEntity playerLostSoul = new LostSoulEntity(this.player.world, gravePosition.x, gravePosition.y, gravePosition.z);
-            playerLostSoul.setPositionAndAnglesKeepPrevAngles(this.player.x, this.player.y, this.player.z, this.player.world.random.nextFloat() * 360.0F, 0.0F);
-            for (int armorIndex = 0; armorIndex < playerLostSoul.armor.length; armorIndex++) {
-                if (null != this.player.inventory.armor[armorIndex]) {
-                    playerLostSoul.armor[armorIndex] = this.player.inventory.armor[armorIndex].copy();
-                }
-            }
-            this.player.world.spawnEntity(playerLostSoul);
         }
     }
 
@@ -97,7 +99,7 @@ public class PlayerInventoryMixin {
             )
     )
     public void hauntedSands_dropArmorItem(PlayerEntity instance, ItemStack stack, boolean throwRandomly, Operation<Void> original) {
-        if (gravePosition != null && !this.player.world.isRemote && this.player.world.difficulty > 0) {
+        if (Config.config.playerDeathCreatesLostSoulEnemy && !this.player.world.isRemote && this.player.world.difficulty > 0) {
             // Do nothing
         } else {
             original.call(instance, stack, throwRandomly);

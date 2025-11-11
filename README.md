@@ -43,6 +43,11 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types for the Octob
 
 ### Other Features
 
+* Ability to create a lost soul on player death that is wearing the dead player's armor
+  * Lost soul is a new flying mob that can no clip through blocks
+  * The lost soul attacks by charging the player
+    * Charge speed increases as the mob gets closer to their player target
+  * Lost souls drop armor on death along with a locked chest (used in grave crafting recipe)
 * Ability to create a grave on player death that contains main inventory items (including hotbar)
   * The grave will not contain armor or modded slot items
   * Grave vanishes on use and items are dropped
@@ -63,9 +68,7 @@ All crafting recipes can be turned on/off from the mod config menu.
 * All sands/cubes are crafted by placing 4 of the correct item in a square.
   * Sands/cubes can also be de-crafted back into 4 of the item used to make them.
 * Graves can be crafted with soul sand, any vanilla slab, and either a regular chest or a locked chest
-  * Locked chests are a special drop from lost soul mobs for this mod
-  * A lost soul mob will spawn on player death if a grave was created
-    * The mob will be wearing the dead player's armor
+  * Locked chests are a vanilla block that is normally unobtainable but will drop when a lost soul mob is killed
 
 ![sugar cube crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/SugarCubeCraftingRecipe.png)
 ![sugar cube de-crafting recipe](https://github.com/telvarost/HauntedSands-StationAPI/blob/main/images/SugarCubeDecraftingRecipe.png)
