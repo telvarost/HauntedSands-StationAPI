@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -33,6 +34,7 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 	public int graveZ = 0;
 	public ItemStack[] armor = new ItemStack[4];
 	protected int attackDamage = 4;
+	private int damageSpill = 0;
 
 	public LostSoulEntity(World world) {
 		super(world);
@@ -47,7 +49,7 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 		this.graveX = graveX;
 		this.graveY = graveY;
 		this.graveZ = graveZ;
-		System.out.println("HwwwwwwwHHH " + this.graveX);
+		System.out.println("TestSpawn " + this.graveX);
 	}
 
 	@Override
@@ -78,7 +80,7 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 		this.graveX = nbt.getInt("GraveX");
 		this.graveY = nbt.getInt("GraveY");
 		this.graveZ = nbt.getInt("GraveZ");
-		System.out.println("HLHHHHHHHH " + this.graveX);
+		System.out.println("TestRead " + this.graveX);
 
 		NbtList armorNbtList = nbt.getList("Inventory");
 		for (int var2 = 0; var2 < armorNbtList.size(); var2++) {
@@ -367,5 +369,34 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 	}
 
 	protected void resetAttack(Entity other, float distance) {
+	}
+
+	public int getTotalArmorDurability() {
+		int var1 = 0;
+		int var2 = 0;
+		int var3 = 0;
+
+		for (int var4 = 0; var4 < this.armor.length; var4++) {
+			if (this.armor[var4] != null && this.armor[var4].getItem() instanceof ArmorItem) {
+				int var5 = this.armor[var4].getMaxDamage();
+				int var6 = this.armor[var4].getDamage2();
+				int var7 = var5 - var6;
+				var2 += var7;
+				var3 += var5;
+				int var8 = ((ArmorItem)this.armor[var4].getItem()).maxProtection;
+				var1 += var8;
+			}
+		}
+
+		return var3 == 0 ? 0 : (var1 - 1) * var2 / var3 + 1;
+	}
+
+	@Override
+	protected void applyDamage(int amount) {
+		int var2 = 25 - getTotalArmorDurability();
+		int var3 = amount * var2 + this.damageSpill;
+		amount = var3 / 25;
+		this.damageSpill = var3 % 25;
+		super.applyDamage(amount);
 	}
 }
