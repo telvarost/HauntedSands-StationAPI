@@ -38,10 +38,12 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 
 	public LostSoulEntity(World world) {
 		super(world);
-		this.texture = "/mob/char.png";
+		this.texture = "/assets/hauntedsands/stationapi/textures/entity/lostsoul.png";
 		this.setBoundingBoxSpacing(0.6F, 1.8F);
 		this.fireImmune = true;
 		this.noClip = true;
+		this.prevHealth = 10;
+		this.health = 10;
 	}
 
 	public LostSoulEntity(World world, int graveX, int graveY, int graveZ) {
@@ -49,7 +51,9 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 		this.graveX = graveX;
 		this.graveY = graveY;
 		this.graveZ = graveZ;
-		System.out.println("TestSpawn " + this.graveX);
+		this.x = (double)graveX + 0.5;
+		this.y = (double)graveY + 0.5;
+		this.z = (double)graveZ + 0.5;
 	}
 
 	@Override
@@ -80,7 +84,6 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 		this.graveX = nbt.getInt("GraveX");
 		this.graveY = nbt.getInt("GraveY");
 		this.graveZ = nbt.getInt("GraveZ");
-		System.out.println("TestRead " + this.graveX);
 
 		NbtList armorNbtList = nbt.getList("Inventory");
 		for (int var2 = 0; var2 < armorNbtList.size(); var2++) {
@@ -146,6 +149,24 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 		}
 
 		return false;
+	}
+
+	@Override
+	protected void tickInVoid() {
+		if (this.graveX == 0 && this.graveY == 0 && this.graveZ == 0) {
+			System.out.println("Lost soul unable to find its grave and has departed from the world!");
+			this.markDead();
+		} else {
+			double relocateX = this.graveX + 0.5 + (Math.random() - 0.5) * 2.0;
+			double relocateY = this.graveY + 1.5 + (Math.random() - 0.5);
+			double relocateZ = this.graveZ + 0.5 + (Math.random() - 0.5) * 2.0;
+			this.setPositionAndAnglesKeepPrevAngles(
+					(double)relocateX,
+					(double)relocateY,
+					(double)relocateZ,
+					this.world.random.nextFloat() * 360.0F,
+					0.0F);
+		}
 	}
 
 	@Override

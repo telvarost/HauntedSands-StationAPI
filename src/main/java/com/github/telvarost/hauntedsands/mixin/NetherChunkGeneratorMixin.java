@@ -1,11 +1,13 @@
 package com.github.telvarost.hauntedsands.mixin;
 
 import com.github.telvarost.hauntedsands.Config;
-import com.github.telvarost.hauntedsands.gen.NetherOreFeature;
+import com.github.telvarost.hauntedsands.gen.NetherGlowstoneSandFeature;
 import com.github.telvarost.hauntedsands.gen.NetherRedstoneSandFeature;
+import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkSource;
 import net.minecraft.world.gen.chunk.NetherChunkGenerator;
+import net.minecraft.world.gen.feature.OreFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,11 +44,11 @@ public class NetherChunkGeneratorMixin {
             int var15;
             int var16;
 
-            for (var13 = 0; var13 < 4; ++var13) {
+            for (var13 = 0; var13 < 8; ++var13) {
                 var14 = var4 + this.random.nextInt(16);
                 var15 = this.random.nextInt(128);
                 var16 = var5 + this.random.nextInt(16);
-                (new NetherOreFeature(GLOWSTONE_SAND.id, this.random.nextInt(8))).generate(this.world, this.random, var14, var15, var16);
+                new NetherGlowstoneSandFeature(GLOWSTONE_SAND.id, this.random.nextInt(4)).generate(this.world, this.random, var14, var15, var16);
             }
         }
 
