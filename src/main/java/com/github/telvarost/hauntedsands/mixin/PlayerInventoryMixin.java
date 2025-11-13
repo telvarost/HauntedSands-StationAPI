@@ -7,6 +7,8 @@ import com.github.telvarost.hauntedsands.entity.LostSoulEntity;
 import com.github.telvarost.hauntedsands.events.init.BlockListener;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -103,7 +105,11 @@ public class PlayerInventoryMixin {
             )
     )
     public void hauntedSands_dropArmorItem(PlayerEntity instance, ItemStack stack, boolean throwRandomly, Operation<Void> original) {
-        if (Config.config.playerDeathCreatesLostSoulEnemy && !this.player.world.isRemote && this.player.world.difficulty > 0) {
+        if (  Config.config.playerDeathCreatesLostSoulEnemy
+           && !this.player.world.isRemote
+           && this.player.world.difficulty > 0
+           && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT
+        ) {
             // Do nothing
         } else {
             original.call(instance, stack, throwRandomly);
