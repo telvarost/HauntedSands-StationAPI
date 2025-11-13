@@ -1,5 +1,6 @@
 package com.github.telvarost.hauntedsands.entity;
 
+import com.github.telvarost.hauntedsands.HauntedSands;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.FlyingEntity;
@@ -13,10 +14,12 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.server.entity.HasTrackingParameters;
+import net.modificationstation.stationapi.api.server.entity.MobSpawnDataProvider;
+import net.modificationstation.stationapi.api.util.Identifier;
 import net.modificationstation.stationapi.api.util.TriState;
 
 @HasTrackingParameters(updatePeriod = 2, sendVelocity = TriState.TRUE, trackingDistance = 30)
-public class LostSoulEntity extends FlyingEntity implements Monster {
+public class LostSoulEntity extends FlyingEntity implements Monster, MobSpawnDataProvider {
 	/**
 	 * Time before the Ghast will pick a new target location to float to
 	 */
@@ -54,6 +57,11 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 		this.x = (double)graveX + 0.5;
 		this.y = (double)graveY + 0.5;
 		this.z = (double)graveZ + 0.5;
+	}
+	@Override
+	public Identifier getHandlerIdentifier()
+	{
+		return Identifier.of(HauntedSands.HAUNTED_SANDS, "LostSoul");
 	}
 
 	@Override
@@ -117,7 +125,7 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 			int var5 = MathHelper.floor(this.x + (double)var2);
 			int var6 = MathHelper.floor(this.y + (double)this.getEyeHeight() + (double)var3);
 			int var7 = MathHelper.floor(this.z + (double)var4);
-			if (this.world.shouldSuffocate(var5, var6, var7)) {
+			if (!this.world.isRemote && this.world.shouldSuffocate(var5, var6, var7)) {
 				if (0 >= followCooldown) {
 					if (null != this.target) {
 						double squaredDistance = this.target.getSquaredDistance(this) / 16;
@@ -154,7 +162,7 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 	@Override
 	protected void tickInVoid() {
 		if (this.graveX == 0 && this.graveY == 0 && this.graveZ == 0) {
-			System.out.println("Lost soul unable to find its grave and has departed from the world!");
+			System.out.println("Lost soul unable to find its grave and has left for the underworld!");
 			this.markDead();
 		} else {
 			double relocateX = this.graveX + 0.5 + (Math.random() - 0.5) * 2.0;
@@ -246,12 +254,12 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 			this.bodyYaw = this.yaw = -((float)Math.atan2(var11, var15)) * 180.0F / (float) Math.PI;
 			if (this.canReach(this.target.x, this.targetY, this.targetZ, 64)) { // canSee
 				if (this.chargeTime == 10) {
-					this.world.playSound(this, "mob.ghast.charge", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+					this.world.playSound(this, "hauntedsands:entity.lostsoul.charge", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 				}
 
 				this.chargeTime++;
 				if (this.chargeTime == 20) {
-					this.world.playSound(this, "mob.ghast.fireball", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+					this.world.playSound(this, "hauntedsands:entity.lostsoul.attack", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 					this.velocityX += Math.min(2.0, (var11 / squaredDistance));
 					this.velocityY += Math.min(2.0, (var13 / squaredDistance));
 					this.velocityZ += Math.min(2.0, (var15 / squaredDistance));
@@ -287,7 +295,7 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 
 		for (int var16 = 1; (double)var16 < steps; var16++) {
 			var15.translate(var9, var11, var13);
-			if (this.world.getEntityCollisions(this, var15).size() > 0) {
+			if (!this.world.getEntityCollisions(this, var15).isEmpty()) {
 				return false;
 			}
 		}
@@ -295,19 +303,19 @@ public class LostSoulEntity extends FlyingEntity implements Monster {
 		return true;
 	}
 
-	@Override
-	protected String getRandomSound() {
-		return "mob.ghast.moan";
-	}
+//	@Override
+//	protected String getRandomSound() {
+//		return "mob.ghast.moan";
+//	}
 
 	@Override
 	protected String getHurtSound() {
-		return "mob.ghast.scream";
+		return "hauntedsands:entity.lostsoul.hurt";
 	}
 
 	@Override
 	protected String getDeathSound() {
-		return "mob.ghast.death";
+		return "hauntedsands:entity.lostsoul.death";
 	}
 
 	@Override

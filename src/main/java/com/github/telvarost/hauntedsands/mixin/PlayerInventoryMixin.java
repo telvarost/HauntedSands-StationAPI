@@ -28,6 +28,7 @@ public class PlayerInventoryMixin {
 
     @Unique BlockPos gravePosition = null;
     @Unique ArrayList<ItemStack> mainInventoryItemList = new ArrayList<>();
+    @Unique boolean spawnLostSoul = false;
 
     @Inject(
             method = "dropInventory",
@@ -37,14 +38,12 @@ public class PlayerInventoryMixin {
     public void hauntedSands_dropInventoryHead(CallbackInfo ci) {
         if (Config.config.playerDeathCreatesLostSoulEnemy) {
             if (!this.player.world.isRemote && this.player.world.difficulty > 0) {
-                LostSoulEntity playerLostSoul = new LostSoulEntity(this.player.world, (int)Math.floor(this.player.x), (int)Math.floor(this.player.y + 1.0), (int)Math.floor(this.player.z));
-                playerLostSoul.setPositionAndAnglesKeepPrevAngles(this.player.x, this.player.y, this.player.z, this.player.world.random.nextFloat() * 360.0F, 0.0F);
-                for (int armorIndex = 0; armorIndex < playerLostSoul.armor.length; armorIndex++) {
+                for (int armorIndex = 0; armorIndex < this.player.inventory.armor.length; armorIndex++) {
                     if (null != this.player.inventory.armor[armorIndex]) {
-                        playerLostSoul.armor[armorIndex] = this.player.inventory.armor[armorIndex].copy();
+                        spawnLostSoul = true;
+                        break;
                     }
                 }
-                this.player.world.spawnEntity(playerLostSoul);
             }
         }
 
@@ -85,6 +84,11 @@ public class PlayerInventoryMixin {
     public void hauntedSands_dropMainInventoryItem(PlayerEntity instance, ItemStack stack, boolean throwRandomly, Operation<Void> original) {
         if (null != gravePosition) {
             mainInventoryItemList.add(stack);
+            if (Config.config.playerDeathCreatesLostSoulEnemy) {
+                if (!this.player.world.isRemote && this.player.world.difficulty > 0) {
+                    spawnLostSoul = true;
+                }
+            }
         } else {
             original.call(instance, stack, throwRandomly);
         }
@@ -112,6 +116,22 @@ public class PlayerInventoryMixin {
             cancellable = true
     )
     public void hauntedSands_dropInventoryTail(CallbackInfo ci) {
+        if (spawnLostSoul) {
+            LostSoulEntity playerLostSoul;
+            if (gravePosition != null) {
+                playerLostSoul = new LostSoulEntity(this.player.world, gravePosition.x, gravePosition.y, gravePosition.z);
+            } else {
+                playerLostSoul = new LostSoulEntity(this.player.world, (int)Math.floor(this.player.x), (int)Math.floor(this.player.y + 1.0), (int)Math.floor(this.player.z));
+            }
+            playerLostSoul.setPositionAndAnglesKeepPrevAngles(this.player.x, this.player.y, this.player.z, this.player.world.random.nextFloat() * 360.0F, 0.0F);
+            for (int armorIndex = 0; armorIndex < playerLostSoul.armor.length; armorIndex++) {
+                if (null != this.player.inventory.armor[armorIndex]) {
+                    playerLostSoul.armor[armorIndex] = this.player.inventory.armor[armorIndex].copy();
+                }
+            }
+            this.player.world.spawnEntity(playerLostSoul);
+        }
+
         if (null != gravePosition && !mainInventoryItemList.isEmpty()) {
             if (18 >= mainInventoryItemList.size()) {
                 this.player.world.setBlock(gravePosition.x, gravePosition.y, gravePosition.z, BlockListener.GRAVE.id, 1);
@@ -152,6 +172,7 @@ public class PlayerInventoryMixin {
             }
         }
 
+        spawnLostSoul = false;
         gravePosition = null;
         mainInventoryItemList = new ArrayList<>();
     }

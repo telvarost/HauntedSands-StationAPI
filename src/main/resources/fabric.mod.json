@@ -26,6 +26,7 @@
       "com.github.telvarost.hauntedsands.events.init.RecipeListener"
     ],
     "stationapi:event_bus_client": [
+      "com.github.telvarost.hauntedsands.events.client.EntityRendererListener",
       "com.github.telvarost.hauntedsands.events.client.GuiListener",
       "com.github.telvarost.hauntedsands.events.client.TextureListener"
     ],
@@ -36,8 +37,6 @@
     ],
     "gcapi3": [
       "com.github.telvarost.hauntedsands.Config"
-    ],
-    "gcapi3:factory_provider": [
     ]
   },
   "mixins": [

@@ -21,6 +21,14 @@ public class Config {
         public TerrainGenerationConfig TERRAIN_GENERATION_CONFIG = new TerrainGenerationConfig();
 
         @ConfigEntry(
+                name = "Chance On Break Soul Sand Spawns Lost Soul",
+                description = "Float value between 0.0 (0%) and 1.0 (100%)",
+                multiplayerSynced = true,
+                maxLength = 1
+        )
+        public Float chanceBreakingSoulSandSpawnsLostSoul = 0.01F;
+
+        @ConfigEntry(
                 name = "Player Death Creates A Lost Soul Enemy",
                 description = "Steals and wears the dead player's armor",
                 multiplayerSynced = true

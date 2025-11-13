@@ -14,6 +14,7 @@
     "PigEntityMixin",
     "PlantBlockMixin",
     "PlayerInventoryMixin",
+    "SoulSandBlockMixin",
     "SugarCaneBlockMixin"
   ],
   "server": [
