@@ -4,6 +4,7 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types, graves, and 
 - Special thanks to DRAGON-STUDIO and HorrorSoundsAsWav over on Pixabay for the mob sounds!
 - Credit to K1W1XD and Mimihanne for the skins used to make the lost soul entity.
 - Mod works on Multiplayer with [GlassConfigAPI](https://modrinth.com/mod/glass-config-api) version 3.0+ used to sync configs!
+  - Falling sand blocks are currently broken on multiplayer sadly as StationAPI does not support it yet.
 - All features can be enabled/disabled through [GlassConfigAPI](https://modrinth.com/mod/glass-config-api) as well.
 
 ### Terrain Generation Features
