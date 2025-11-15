@@ -84,7 +84,8 @@ public abstract class PigEntityMixin extends AnimalEntity {
     @Override
     protected float getPathfindingFavor(int x, int y, int z) {
         if (this.isSaddled()) {
-            return this.world.getBlockId(x, y - 1, z) == SUGAR_CUBE.id ? 10.0F : this.world.method_1782(x, y, z) - 0.5F;
+            int blockId = this.world.getBlockId(x, y - 1, z);
+            return (blockId == SUGAR_CUBE.id || blockId == Block.BROWN_MUSHROOM.id) ? 10.0F : this.world.method_1782(x, y, z) - 0.5F;
         } else {
             return this.world.getBlockId(x, y - 1, z) == Block.GRASS_BLOCK.id ? 10.0F : this.world.method_1782(x, y, z) - 0.5F;
         }
