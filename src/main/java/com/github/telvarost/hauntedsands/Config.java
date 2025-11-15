@@ -71,7 +71,7 @@ public class Config {
                 description = "Redstone Sand crafts back to 4 redstone",
                 multiplayerSynced = true
         )
-        public Boolean enableRedstoneSandDecraftingRecipe = true;
+        public Boolean enableRedstoneSandDecraftingRecipe = false;
 
         @ConfigEntry(
                 name = "Enable Sugar Cube Crafting Recipe",
@@ -85,7 +85,7 @@ public class Config {
                 description = "Sugar Cube crafts back to 4 sugar",
                 multiplayerSynced = true
         )
-        public Boolean enableSugarCubeDecraftingRecipe = true;
+        public Boolean enableSugarCubeDecraftingRecipe = false;
 
         @ConfigEntry(
                 name = "Enable Gunpowder Cube Crafting Recipe",
@@ -99,7 +99,7 @@ public class Config {
                 description = "Gunpowder Cube crafts back to 4 gunpowder",
                 multiplayerSynced = true
         )
-        public Boolean enableGunpowderCubeDecraftingRecipe = true;
+        public Boolean enableGunpowderCubeDecraftingRecipe = false;
 
         @ConfigEntry(
                 name = "Replace Glowstone Recipe With Glowstone Sand",
@@ -113,7 +113,7 @@ public class Config {
                 description = "Glowstone Sand crafts back to 4 dust",
                 multiplayerSynced = true
         )
-        public Boolean enableGlowstoneSandDecraftingRecipe = true;
+        public Boolean enableGlowstoneSandDecraftingRecipe = false;
     }
 
     public static class TerrainGenerationConfig {
