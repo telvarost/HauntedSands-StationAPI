@@ -12,12 +12,14 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types, graves, and 
   * Generates between Y levels 4 and 52
   * Generates 0 to 23 gunpowder cubes
   * Does not generate in Forest, Plains, or Tundra biomes
+  * Often will catch fire immediately from lava and explode on generation
+    * Explosion is not strong enough to break stone
 * Allows nether generation of stripes of redstone sand
   * Generates below Y level 80
   * Generates 0 to 63 redstone sand
-* Allows nether generation of small bits of glowstone sand
+* Allows nether generation of small flat stars of glowstone sand
   * Generates at all Y levels
-  * Generates 0 to 7 glowstone sand
+  * Generates 0 to 13 glowstone sand
 
 ### Sand/Cube Features
 
@@ -33,6 +35,7 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types, graves, and 
     * Dead bushes and small plants can be planted on it (they will not grow)
 * Sugar Cube
   * Dissolves when it falls into water or lava
+  * Saddled pigs can eat the sugar cube by walking on it
   * Soil Properties:
     * Sugar Cane can be planted and grow on it
     * Dead bushes and small plants can be planted on it (they will not grow)
@@ -50,11 +53,12 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types, graves, and 
   * The lost soul attacks by charging the player
     * Charge speed increases as the mob gets closer to their player target
   * Lost souls drop stolen armor on death along with a locked chest (used in the Grave crafting recipe)
+  * No lost soul will be created if player inventory and armor slots are empty
 * Ability to create a grave on player death that contains main inventory items (including hotbar)
   * The grave will not contain armor or modded slot items
-  * Grave vanishes on use and items are dropped
+  * Grave vanishes on use and items are dropped (a permanent version can be crafted, see recipe below)
   * Grave is blast resistant to creepers
-    * A creeper standing on it may still be able to blow it up
+    * A creeper standing on it may still be able to blow it up (usually only happens with slab graves)
   * Grave will be a slab if less than half or half the main inventory slots are filled
     * Grave slabs combine using beta slab logic
   * Grave will be a full block (Columbarium) if more than half the main inventory slots are filled
@@ -64,7 +68,7 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types, graves, and 
   * The pigs are rather finicky and sometimes won't seek out or do anything
     * You can try to push/prod them to get them moving again, but it won't always work
   * Saddled pigs also have a slight pathing preference for sugar cube and brown mushroom blocks (not noticeable in small amounts)
-    * As a result they lose their slight pathing preference for grass blocks
+    * Saddled pigs lose their slight pathing preference for grass blocks since they are now seeking the other blocks
 
 ### Crafting Recipes
 
