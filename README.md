@@ -53,6 +53,9 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types, graves, and 
   * Lost soul is a new flying mob that can no clip through blocks
   * The lost soul attacks by charging the player
     * Charge speed increases as the mob gets closer to their player target
+    * Lost souls can charge a second time if they are in a solid opaque block
+  * You can trap lost souls in translucent blocks like tree leaves, ice, glass, snow layers, tall grass, etc.
+    * If you are having trouble with lost souls the surface is your friend!
   * Lost souls drop stolen armor on death along with a locked chest (used in the Grave crafting recipe)
   * No lost soul will be created if player inventory and armor slots are empty
 * Ability to create a grave on player death that contains main inventory items (including hotbar)
