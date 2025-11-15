@@ -58,6 +58,7 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types, graves, and 
     * If you are having trouble with lost souls the surface is your friend!
   * Lost souls drop stolen armor on death along with a locked chest (used in the Grave crafting recipe)
   * No lost soul will be created if player inventory and armor slots are empty
+  * Lost souls also spawn rarely when soul sand is broken
 * Ability to create a grave on player death that contains main inventory items (including hotbar)
   * The grave will not contain armor or modded slot items
   * Grave vanishes on use and items are dropped (a permanent version can be crafted, see recipe below)
