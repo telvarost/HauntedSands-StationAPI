@@ -118,9 +118,9 @@ dependencies {
 		transitive false
 	}
 
-	modImplementation ("maven.modrinth:clientsideessentials-stationapi:${project.clientsideessentials_version}") {
-		transitive false
-	}
+//	modImplementation ("maven.modrinth:clientsideessentials-stationapi:${project.clientsideessentials_version}") {
+//		transitive false
+//	}
 }
 
 processResources {
