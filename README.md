@@ -1,6 +1,8 @@
 # HauntedSands StationAPI for Minecraft Beta 1.7.3
 
-A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types for the October 2025 Halloween modding event.
+A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types, graves, and lost souls.
+- Special thanks to DRAGON-STUDIO and HorrorSoundsAsWav over on Pixabay for the mob sounds!
+- Credit to K1W1XD and Mimihanne for the skins used to make the lost soul entity.
 - Mod works on Multiplayer with [GlassConfigAPI](https://modrinth.com/mod/glass-config-api) version 3.0+ used to sync configs!
 - All features can be enabled/disabled through [GlassConfigAPI](https://modrinth.com/mod/glass-config-api) as well.
 
@@ -61,6 +63,8 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types for the Octob
   * Pigs will eat the sugar healing them 0.5 hearts if they are hurt
   * The pigs are rather finicky and sometimes won't seek out or do anything
     * You can try to push/prod them to get them moving again, but it won't always work
+  * Saddled pigs also have a slight pathing preference for sugar cube and brown mushroom blocks (not noticeable in small amounts)
+    * As a result they lose their slight pathing preference for grass blocks
 
 ### Crafting Recipes
 
