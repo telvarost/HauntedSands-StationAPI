@@ -71,7 +71,7 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types, graves, and 
   * Pigs will eat the sugar healing them 0.5 hearts if they are hurt
   * The pigs are rather finicky and sometimes won't seek out or do anything
     * You can try to push/prod them to get them moving again, but it won't always work
-  * Saddled pigs also have a slight pathing preference for sugar cube and brown mushroom blocks (not noticeable in small amounts)
+  * Saddled pigs also have a slight pathing preference for sugar cube and brown mushroom blocks (not noticeable in small quantities)
     * Saddled pigs lose their slight pathing preference for grass blocks since they are now seeking the other blocks
 
 ### Crafting Recipes
