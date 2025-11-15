@@ -39,7 +39,7 @@ public abstract class PigEntityMixin extends AnimalEntity {
                             }
 
                             if (this.health < 10) {
-                                health++;
+                                this.health++;
                             }
                         }
                     }

@@ -3,6 +3,7 @@ package com.github.telvarost.hauntedsands.block;
 import com.github.telvarost.hauntedsands.HauntedSands;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.PigEntity;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.template.block.TemplateSandBlock;
 import net.modificationstation.stationapi.api.util.Identifier;
@@ -23,6 +24,12 @@ public class SugarCube extends TemplateSandBlock {
             PigEntity pigEntity = (PigEntity) entity;
             if (pigEntity.isSaddled()) {
                 world.setBlock(x, y, z, 0);
+                pigEntity.dropItem(Item.SUGAR.id, 1);
+                pigEntity.dropItem(Item.SUGAR.id, 1);
+                pigEntity.dropItem(Item.SUGAR.id, 1);
+                if (pigEntity.health < 10) {
+                    pigEntity.health++;
+                }
             }
         }
     }
