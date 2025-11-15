@@ -31,6 +31,7 @@ public class PlayerInventoryMixin {
     @Unique BlockPos gravePosition = null;
     @Unique ArrayList<ItemStack> mainInventoryItemList = new ArrayList<>();
     @Unique boolean spawnLostSoul = false;
+    @Unique ItemStack[] lostSoulArmor = new ItemStack[4];
 
     @Inject(
             method = "dropInventory",
@@ -42,8 +43,10 @@ public class PlayerInventoryMixin {
             if (!this.player.world.isRemote && this.player.world.difficulty > 0) {
                 for (int armorIndex = 0; armorIndex < this.player.inventory.armor.length; armorIndex++) {
                     if (null != this.player.inventory.armor[armorIndex]) {
+                        lostSoulArmor[armorIndex] = this.player.inventory.armor[armorIndex].copy();
                         spawnLostSoul = true;
-                        break;
+                    } else {
+                        lostSoulArmor[armorIndex] = null;
                     }
                 }
             }
@@ -108,7 +111,6 @@ public class PlayerInventoryMixin {
         if (  Config.config.playerDeathCreatesLostSoulEnemy
            && !this.player.world.isRemote
            && this.player.world.difficulty > 0
-           && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT
         ) {
             // Do nothing
         } else {
@@ -131,8 +133,8 @@ public class PlayerInventoryMixin {
             }
             playerLostSoul.setPositionAndAnglesKeepPrevAngles(this.player.x, this.player.y, this.player.z, this.player.world.random.nextFloat() * 360.0F, 0.0F);
             for (int armorIndex = 0; armorIndex < playerLostSoul.armor.length; armorIndex++) {
-                if (null != this.player.inventory.armor[armorIndex]) {
-                    playerLostSoul.armor[armorIndex] = this.player.inventory.armor[armorIndex].copy();
+                if (null != lostSoulArmor[armorIndex]) {
+                    playerLostSoul.armor[armorIndex] = lostSoulArmor[armorIndex].copy();
                 }
             }
             this.player.world.spawnEntity(playerLostSoul);

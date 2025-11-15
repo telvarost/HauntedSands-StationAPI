@@ -1,5 +1,6 @@
 package com.github.telvarost.hauntedsands.entity;
 
+import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
@@ -10,10 +11,15 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.modificationstation.stationapi.api.client.item.ArmorTextureProvider;
+import net.modificationstation.stationapi.api.util.Identifier;
 import org.lwjgl.opengl.GL11;
+
+import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class LostSoulEntityRenderer extends LivingEntityRenderer {
+	private static final Map<Identifier, String[]> STATIONAPI$ARMOR_CACHE = new Reference2ObjectOpenHashMap<>();
 	private BipedEntityModel bipedModel = (BipedEntityModel)this.model;
 	private BipedEntityModel armor1 = new BipedEntityModel(1.0F);
 	private BipedEntityModel armor2 = new BipedEntityModel(0.5F);
@@ -21,6 +27,41 @@ public class LostSoulEntityRenderer extends LivingEntityRenderer {
 
 	public LostSoulEntityRenderer() {
 		super(new BipedEntityModel(0.0F), 0.5F);
+	}
+
+	private String stationapi_getTexturePath(Identifier identifier, int armorIndex) {
+		return "/assets/" + identifier.namespace + "/stationapi/textures/armor/" + identifier.path + (armorIndex == 2 ? "_2.png" : "_1.png");
+	}
+
+	protected boolean customBindTexture(LivingEntity livingEntity, int i, float f, int itemId) {
+		Item armorItem = (0 < itemId) ? Item.ITEMS[itemId] : null;
+		if (armorItem != null) {
+			if (armorItem instanceof ArmorItem) {
+				ArmorItem var6 = (ArmorItem)armorItem;
+
+				if (var6 instanceof ArmorTextureProvider provider) {
+					Identifier id = provider.getTexture(var6);
+					String[] textures = STATIONAPI$ARMOR_CACHE.computeIfAbsent(id, k -> new String[4]);
+					if (textures[i] == null) textures[i] = stationapi_getTexturePath(id, i);
+					this.bindTexture(textures[i]);
+				} else {
+					this.bindTexture("/armor/" + armorTextureNames[var6.textureIndex] + "_" + (i == 2 ? 2 : 1) + ".png");
+				}
+
+				BipedEntityModel var7 = i == 2 ? this.armor2 : this.armor1;
+				var7.head.visible = i == 0;
+				var7.hat.visible = i == 0;
+				var7.body.visible = i == 1 || i == 2;
+				var7.rightArm.visible = i == 1;
+				var7.leftArm.visible = i == 1;
+				var7.rightLeg.visible = i == 2 || i == 3;
+				var7.leftLeg.visible = i == 2 || i == 3;
+				this.setDecorationModel(var7);
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	@Override
@@ -51,8 +92,8 @@ public class LostSoulEntityRenderer extends LivingEntityRenderer {
 	@Override
 	public void render(LivingEntity livingEntity, double d, double e, double f, float g, float h) {
 		LostSoulEntity lostSoulEntity = (LostSoulEntity)livingEntity;
-		ItemStack var10 = null; //lostSoulEntity.inventory.getSelectedItem();
-		this.armor1.rightArmPose = this.armor2.rightArmPose = this.bipedModel.rightArmPose = var10 != null;
+		//ItemStack var10 = null; //lostSoulEntity.inventory.getSelectedItem();
+		this.armor1.rightArmPose = this.armor2.rightArmPose = this.bipedModel.rightArmPose = false;
 		this.armor1.sneaking = this.armor2.sneaking = this.bipedModel.sneaking = lostSoulEntity.isSneaking();
 		double var11 = e - (double)lostSoulEntity.standingEyeHeight;
 		renderInternal((LivingEntity)lostSoulEntity, d, var11, f, g, h);
@@ -104,12 +145,26 @@ public class LostSoulEntityRenderer extends LivingEntityRenderer {
 
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-			for (int var17 = 0; var17 < 4; var17++) {
-				if (this.bindTexture(livingEntity, var17, h)) {
-					this.decorationModel.render(var16, var15, var13, var11 - var10, var12, var14);
-					GL11.glDisable(3042);
-					GL11.glEnable(3008);
-				}
+			LostSoulEntity lostSoulEntity = (LostSoulEntity)livingEntity;
+			if (customBindTexture(livingEntity, 0, h, lostSoulEntity.armorItemIdSlot4)) {
+				this.decorationModel.render(var16, var15, var13, var11 - var10, var12, var14);
+				GL11.glDisable(3042);
+				GL11.glEnable(3008);
+			}
+			if (customBindTexture(livingEntity, 1, h, lostSoulEntity.armorItemIdSlot3)) {
+				this.decorationModel.render(var16, var15, var13, var11 - var10, var12, var14);
+				GL11.glDisable(3042);
+				GL11.glEnable(3008);
+			}
+			if (customBindTexture(livingEntity, 2, h, lostSoulEntity.armorItemIdSlot2)) {
+				this.decorationModel.render(var16, var15, var13, var11 - var10, var12, var14);
+				GL11.glDisable(3042);
+				GL11.glEnable(3008);
+			}
+			if (customBindTexture(livingEntity, 3, h, lostSoulEntity.armorItemIdSlot1)) {
+				this.decorationModel.render(var16, var15, var13, var11 - var10, var12, var14);
+				GL11.glDisable(3042);
+				GL11.glEnable(3008);
 			}
 
 			renderMore((LostSoulEntity) livingEntity, h);
@@ -168,18 +223,18 @@ public class LostSoulEntityRenderer extends LivingEntityRenderer {
 	@Override
 	protected void renderMore(LivingEntity livingEntity, float f) {
 		LostSoulEntity lostSoulEntity = (LostSoulEntity)livingEntity;
-		ItemStack var3 = lostSoulEntity.armor[3];
-		if (var3 != null && var3.getItem().id < 256) {
+		if (lostSoulEntity.armorItemIdSlot4 < 256) {
+			ItemStack itemStack = new ItemStack(lostSoulEntity.armorItemIdSlot4, 1, 0);
 			GL11.glPushMatrix();
 			this.bipedModel.head.transform(0.0625F);
-			if (BlockRenderManager.isSideLit(Block.BLOCKS[var3.itemId].getRenderType())) {
+			if (BlockRenderManager.isSideLit(Block.BLOCKS[lostSoulEntity.armorItemIdSlot4].getRenderType())) {
 				float var4 = 0.625F;
 				GL11.glTranslatef(0.0F, -0.25F, 0.0F);
 				GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
 				GL11.glScalef(var4, -var4, var4);
 			}
 
-			this.dispatcher.heldItemRenderer.renderItem(lostSoulEntity, var3);
+			this.dispatcher.heldItemRenderer.renderItem(lostSoulEntity, itemStack);
 			GL11.glPopMatrix();
 		}
 

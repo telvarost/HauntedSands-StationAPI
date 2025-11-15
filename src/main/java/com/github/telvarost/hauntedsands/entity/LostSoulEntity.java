@@ -36,6 +36,10 @@ public class LostSoulEntity extends FlyingEntity implements Monster, MobSpawnDat
 	public int graveY = 0;
 	public int graveZ = 0;
 	public ItemStack[] armor = new ItemStack[4];
+	public int armorItemIdSlot1 = 0;
+	public int armorItemIdSlot2 = 0;
+	public int armorItemIdSlot3 = 0;
+	public int armorItemIdSlot4 = 0;
 	protected int attackDamage = 4;
 	private int damageSpill = 0;
 
@@ -180,14 +184,19 @@ public class LostSoulEntity extends FlyingEntity implements Monster, MobSpawnDat
 	@Override
 	protected void initDataTracker() {
 		super.initDataTracker();
-		this.dataTracker.startTracking(16, (byte)0);
+		this.dataTracker.startTracking(16, Integer.valueOf(this.armorItemIdSlot1));
+		this.dataTracker.startTracking(17, Integer.valueOf(this.armorItemIdSlot2));
+		this.dataTracker.startTracking(18, Integer.valueOf(this.armorItemIdSlot3));
+		this.dataTracker.startTracking(19, Integer.valueOf(this.armorItemIdSlot4));
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		byte var1 = this.dataTracker.getByte(16);
-		//this.texture = var1 == 1 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
+		this.armorItemIdSlot1 = this.dataTracker.getInt(16);
+		this.armorItemIdSlot2 = this.dataTracker.getInt(17);
+		this.armorItemIdSlot3 = this.dataTracker.getInt(18);
+		this.armorItemIdSlot4 = this.dataTracker.getInt(19);
 	}
 
 	@Override
@@ -276,11 +285,14 @@ public class LostSoulEntity extends FlyingEntity implements Monster, MobSpawnDat
 		}
 
 		if (!this.world.isRemote) {
-			byte var21 = this.dataTracker.getByte(16);
-			byte var12 = (byte)(this.chargeTime > 10 ? 1 : 0);
-			if (var21 != var12) {
-				this.dataTracker.set(16, var12);
-			}
+			int armorItemIdSlot1 = (null != this.armor[0]) ? this.armor[0].itemId : 0;
+			int armorItemIdSlot2 = (null != this.armor[1]) ? this.armor[1].itemId : 0;
+			int armorItemIdSlot3 = (null != this.armor[2]) ? this.armor[2].itemId : 0;
+			int armorItemIdSlot4 = (null != this.armor[3]) ? this.armor[3].itemId : 0;
+			this.dataTracker.set(16, armorItemIdSlot1);
+			this.dataTracker.set(17, armorItemIdSlot2);
+			this.dataTracker.set(18, armorItemIdSlot3);
+			this.dataTracker.set(19, armorItemIdSlot4);
 		}
 	}
 
@@ -324,6 +336,12 @@ public class LostSoulEntity extends FlyingEntity implements Monster, MobSpawnDat
 		if (var1 > 0) {
 			this.dropItem(var1, 1);
 		}
+
+		for (int armorIndex = 0; armorIndex < this.armor.length; armorIndex++) {
+			if (null != this.armor[armorIndex]) {
+				this.dropItem(this.armor[armorIndex].copy(), 1);
+			}
+		}
 	}
 
 	@Override
@@ -344,17 +362,6 @@ public class LostSoulEntity extends FlyingEntity implements Monster, MobSpawnDat
 	@Override
 	public int getLimitPerChunk() {
 		return 1;
-	}
-
-	@Override
-	public void onKilledBy(Entity adversary) {
-		super.onKilledBy(adversary);
-
-		for (int armorIndex = 0; armorIndex < this.armor.length; armorIndex++) {
-			if (null != this.armor[armorIndex]) {
-				this.dropItem(this.armor[armorIndex].copy(), 1);
-			}
-		}
 	}
 
 	@Override
