@@ -46,7 +46,8 @@
 
   "depends": {
     "minecraft": "1.0.0-beta.7.3",
-    "stationapi": "*"
+    "stationapi": "*",
+    "zastavkaapi": ">=1.1.0"
   },
 
   "recommends": {

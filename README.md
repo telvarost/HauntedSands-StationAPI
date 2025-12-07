@@ -4,7 +4,7 @@ A StationAPI mod for Minecraft Beta 1.7.3 that adds new sand types, graves, and 
 - Special thanks to DRAGON-STUDIO and HorrorSoundsAsWav over on Pixabay for the mob sounds!
 - Credit to K1W1XD and Mimihanne for the skins used to make the lost soul entity.
 - Mod works on Multiplayer with [GlassConfigAPI](https://modrinth.com/mod/glass-config-api) version 3.0+ used to sync configs!
-  - Falling sand blocks are currently broken on multiplayer sadly as StationAPI does not support it yet.
+  - Requires [ZastavkaAPI](https://modrinth.com/mod/zastavkaapi) to work on servers, until StationAPI fixes its falling blocks.
 - All features can be enabled/disabled through [GlassConfigAPI](https://modrinth.com/mod/glass-config-api) as well.
 
 ### Terrain Generation Features
@@ -101,9 +101,10 @@ All crafting recipes can be turned on/off from the mod config menu.
 3. Add GlassConfigAPI 3.0.2+ to the mod folder for the instance: https://modrinth.com/mod/glass-config-api
 4. Add Glass Networking to the mod folder for the instance: https://modrinth.com/mod/glass-networking
 5. Add StationAPI to the mod folder for the instance: https://modrinth.com/mod/stationapi
-6. (Optional) Add Mod Menu to the mod folder for the instance: https://modrinth.com/mod/modmenu-beta
-7. Add this mod to the mod folder for the instance: https://github.com/telvarost/HauntedSands-StationAPI/releases
-8. Run and enjoy! 👍
+6. Add ZastavkaAPI to the mod folder for the instance: https://modrinth.com/mod/zastavkaapi
+7. (Optional) Add Mod Menu to the mod folder for the instance: https://modrinth.com/mod/modmenu-beta
+8. Add this mod to the mod folder for the instance: https://github.com/telvarost/HauntedSands-StationAPI/releases
+9. Run and enjoy! 👍
 
 ## Feedback
 
