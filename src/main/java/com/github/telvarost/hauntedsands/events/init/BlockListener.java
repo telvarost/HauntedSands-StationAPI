@@ -32,8 +32,8 @@ public class BlockListener {
 
     @EventListener
     public void registerBlockEntities(BlockEntityRegisterEvent event) {
-        event.register(ColumbariumBlockEntity.class, Identifier.of(HauntedSands.HAUNTED_SANDS, "columbarium").toString());
-        event.register(GraveBlockEntity.class, Identifier.of(HauntedSands.HAUNTED_SANDS, "grave").toString());
+        event.register(Identifier.of(HauntedSands.HAUNTED_SANDS, "columbarium").toString(), ColumbariumBlockEntity.class);
+        event.register(Identifier.of(HauntedSands.HAUNTED_SANDS, "grave").toString(), GraveBlockEntity.class);
     }
 
     @EventListener

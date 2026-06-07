@@ -41,12 +41,12 @@ public class LitRedstoneSand extends TemplateSandBlock {
     }
 
     @Override
-    public boolean isEmittingRedstonePowerInDirection(BlockView blockView, int x, int y, int z, int direction) {
+    public boolean isPoweringSide(BlockView blockView, int x, int y, int z, int direction) {
         return true;
     }
 
     @Override
-    public boolean canTransferPowerInDirection(World world, int x, int y, int z, int direction) {
+    public boolean isStrongPoweringSide(World world, int x, int y, int z, int direction) {
         return true;
     }
 
