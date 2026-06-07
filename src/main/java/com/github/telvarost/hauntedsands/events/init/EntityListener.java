@@ -1,9 +1,9 @@
 package com.github.telvarost.hauntedsands.events.init;
 
 import com.github.telvarost.hauntedsands.HauntedSands;
+import com.github.telvarost.hauntedsands.datafixer.EntityIdentifierFix;
+import com.github.telvarost.hauntedsands.datafixer.RemainderSchema;
 import com.github.telvarost.hauntedsands.entity.LostSoulEntity;
-import com.matthewperiut.elementalcreepers.datafixer.EntityIdentifierFix;
-import com.matthewperiut.elementalcreepers.datafixer.RemainderSchema;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
 import net.mine_diver.unsafeevents.listener.EventListener;
