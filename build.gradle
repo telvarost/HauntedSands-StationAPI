@@ -183,6 +183,12 @@ dependencies {
 		}
 	}
 
+	if (project.hasProperty("betterf3_version")) {
+		modImplementation("maven.modrinth:betterf3-stationapi:${project.betterf3_version}") {
+			transitive false
+		}
+	}
+
 	if (project.hasProperty("zastavkaapi_version")) {
 		modImplementation("maven.modrinth:zastavkaapi:${project.zastavkaapi_version}") {
 			transitive false
